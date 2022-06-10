@@ -7,7 +7,8 @@ let DB_URI;
 if (process.env.NODE_ENV === "test") {
   DB_URI = "postgresql:///signs_test";
 } else {
-  DB_URI = "postgresql:///signs";
+    // CHANGE TO ///signs after set up
+  DB_URI = "postgresql:///signs_test";
 }
 
 let db = new Client({

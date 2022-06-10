@@ -25,7 +25,7 @@ CREATE TABLE users (
 CREATE TABLE boards (
     id SERIAL   PRIMARY KEY,
     name text   NOT NULL,
-    user_Id text   NOT NULL,
+    user_Id INTEGER   NOT NULL,
     date_created timestamp   NOT NULL,
     date_last_edited timestamp   NOT NULL
      
@@ -71,6 +71,11 @@ INSERT INTO boards
   (name, user_id, date_created, date_last_edited)
   VALUES
   ('second board', 2, '2004-10-20 10:23:54', '2004-10-20 11:23:54');
+
+INSERT INTO boards
+  (name, user_id, date_created, date_last_edited)
+  VALUES
+  ('third board', 2, '2004-10-20 10:23:54', '2004-10-20 11:23:54');
 
 INSERT INTO gifs
   (name, description, giphy_id)

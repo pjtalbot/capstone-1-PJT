@@ -1,4 +1,5 @@
 const db = require('../db')
+const ExpressError = require('../expressError')
 
 // explore event loop
 class User {
@@ -15,6 +16,21 @@ class User {
         const gifs = results.rows.map(r => new Gif(r.id, r.name, r.description, r.giphy_id))
         console.log(gifs)
         return gifs
+    }
+
+    static async create(username, email, password) {
+        // format js Date into SQL date. Write own helper function or import later
+        // https://stackoverflow.com/questions/5129624/convert-js-date-time-to-mysql-datetime
+        if(!username || !email || !password) {
+            throw new ExpressError("missing data!", 400)
+        }
+        let rightNow = new Date().toISOString().slice(0, 19).replace('T', ' ');
+
+        const result = await db.query(`INSERT INTO users (username, email, password, date_created, date_last_edited) 
+        VALUES ($1, $2, $3, $4, $5)
+        RETURNING id, username, password, email, date_created, date_last_edited`, [username, email, password, rightNow, rightNow])
+        return result.rows[0]
+
     }
 
 }

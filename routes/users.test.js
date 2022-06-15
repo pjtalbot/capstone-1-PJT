@@ -1,6 +1,6 @@
 process.env.NODE_ENV = 'test'
 // sets node environment to testing
-const Item = require('../item')
+const User = require('../models/user')
 
 const request = require('supertest')
 
@@ -8,11 +8,12 @@ const request = require('supertest')
 
 
 const app = require('../app')
-let items = require('../fakeDb')
+
 
 beforeEach(function() {
-    let oreos = new Item('oreos', 4.00)
+    let newUser = new User('oreos', 4.00)
     // jest
+
 })
 
 afterEach(function() {

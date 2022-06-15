@@ -8,9 +8,11 @@ const ExpressError = require('./expressError');
 app.use(express.json());
 
 const uRoutes = require("./routes/users");
-const bRoutes = require("./routes/boards")
+const bRoutes = require("./routes/boards");
+const gRoutes = require('./routes/gifs')
 app.use("/users", uRoutes);
 app.use('/boards', bRoutes)
+app.use("/gifs", gRoutes)
 
 
 /** 404 handler */

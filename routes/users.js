@@ -2,6 +2,8 @@ const db = require("../db");
 const express = require("express");
 const router = express.Router();
 const ExpressError = require("../expressError");
+const jsonschema = require('jsonschema')
+const userSchema = require('../schemas/userSchema')
 
 router.get('/', async (req, res, next) => {
     try {
@@ -42,6 +44,19 @@ router.get('/:id', async (req, res, next) => {
   } catch (e) {
     return next(e)
   }
+})
+
+router.post('/', function(req, res, next) {
+  const result = jsonschema.validate(req.body, userSchema)
+
+  if (!result.valid) {
+    let errors = result.errors.map(e => e.stack)
+    let error = new ExpressError(errors, 400)
+    return next(error);
+    
+  }
+  const { user } = req.body;
+  return res.json({user: user})
 })
 
 router.patch('/:id', async (req, res, next) => {

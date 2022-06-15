@@ -2,13 +2,12 @@ const db = require("../db");
 const express = require("express");
 const router = express.Router();
 const ExpressError = require("../expressError");
+const Board = require('../models/board')
 
 router.get('/', async (req, res, next) => {
     try {
-        const results = await db.query(`
-        SELECT * FROM Users
-        `)
-        return res.json(results.rows)
+        const boards = await Board.getAll()
+        return res.json({boards: boards})
     }
         catch (e) {
             return next(e)
@@ -17,30 +16,54 @@ router.get('/', async (req, res, next) => {
 
 router.get('/:id', async (req, res, next) => {
   try {
-    const results = await db.query(`
-      SELECT b.id AS board_id, b.user_id, g.giphy_id  
-      FROM boards AS b
-      LEFT JOIN boards_gifs AS bg 
-      ON b.id = bg.board_id
-      LEFT JOIN gifs AS g
-      ON  bg.gif_id = g.id
-      LEFT JOIN users as u
-      ON b.user_id = u.id
-      WHERE u.id = $1`, [req.params.id])
-    if (results.rows.length === 0) {
-      throw new ExpressError(`Message not found with id ${req.params.id}`, 404)
-    }
-    const data = results.rows[0];
+    const board = await Board.getById(req.params.id)
     
-    return res.send(data)
-  } catch (e) {
-    return next(e)
-  }
+    // const data = results.rows[0];
+    
+    return res.json(board)
+    } catch(e) {
+        next(e)
+    }
+    
+  
 })
 
+router.post('/', async (req, res, next) => {
+    try {
+        const { name, user_id } = req.body;
+        const newBoard = await Board.create(name, user_id)
 
+        return res.json(newBoard)
 
+    } catch (e) {
+        return next(e)
 
+    }
+})
+
+router.delete('/:id', async (req, res, next) => {
+    try {
+        await Board.delete(req.params.id)
+
+        return res.json({msg: "Deleted"})
+
+    } catch (e) {
+        return next(e)
+
+    }
+})
+
+router.patch('/:id', async (req, res, next) => {
+    try {
+        let newName = req.body.name
+        console.log(req.body)
+        const board = await Board.update(req.params.id, newName)
+        return res.json(board)
+
+    } catch(e) {
+        next(e)
+    }
+})
 
 
 

@@ -1,0 +1,75 @@
+{
+    "$schema": "https://json-schema.org/draft/2019-09/schema",
+    "$id": "http://example.com/example.json",
+    "type": "object",
+    "default": {},
+    "title": "Root Schema",
+    "required": [
+        "user"
+    ],
+    "properties": {
+        "user": {
+            "type": "object",
+            "default": {},
+            "title": "The user Schema",
+            "required": [
+                "username",
+                "email"
+    
+            ],
+            "properties": {
+                "username": {
+                    "type": "string",
+                    "default": "",
+                    "title": "The username Schema",
+                    "examples": [
+                        "happyboy"
+                    ]
+                },
+                "email": {
+                    "type": "string",
+                    "minLength": 3,
+                    "maxLength": 20,
+                    "format": "email",
+                    "default": "",
+                    "title": "The email Schema",
+                    "examples": [
+                        "happyboy@gmail.com"
+                    ]
+                },
+                "date_created": {
+                    "type": "string",
+                    "format": "date-time",
+                    "default": "",
+                    "title": "The date_created Schema",
+                    "examples": [
+                        "2018-11-13T20:20:39+00:00"
+                    ]
+                },
+                "date_last_edited": {
+                    "type": "string",
+                    "format": "date-time",
+                    "default": "",
+                    "title": "The date_last_edited Schema",
+                    "examples": [
+                        "2018-11-13T20:20:39+00:00"
+                    ]
+                }
+            },
+            "examples": [{
+                "username": "happyboy",
+                "email": "happyboy@gmail.com",
+                "date_created": "2018-11-13T20:20:39+00:00",
+                "date_last_edited": "2018-11-13T20:20:39+00:00"
+            }]
+        }
+    },
+    "examples": [{
+        "user": {
+            "username": "happyboy",
+            "email": "happyboy@gmail.com",
+            "date_created": "2018-11-13T20:20:39+00:00",
+            "date_last_edited": "2018-11-13T20:20:39+00:00"
+        }
+    }]
+}

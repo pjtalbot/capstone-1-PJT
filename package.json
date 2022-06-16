@@ -17,5 +17,8 @@
     "jsonwebtoken": "^8.5.1",
     "pg": "^8.7.3",
     "supertest": "^6.2.3"
+  },
+  "devDependencies": {
+    "cypress": "^10.1.0"
   }
 }

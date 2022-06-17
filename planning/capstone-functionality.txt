@@ -1,0 +1,31 @@
+Other Languages (user languages, not code)?
+Way for user to upload gifs of signs, automatically add id to local database.
+
+Store gif urls in db NOT just giphy id?
+What's the most efficient way to store the data? 
+  storing actual gif urls will increase the amount of data in my db
+  BUT will reduce the amount of api calls
+
+Search:
+    use giphy search endpoint
+    accept string from user
+    add "sign language" or "american sign language" to query
+
+    Example response: see exampleResponse.json
+
+    search for milk:
+
+    let searchAPI = async (str) => {
+      
+      let results = await axios.get('https://api.giphy.com/v1/gifs/search?api_key=fW0yRyklR4H8mUX5pf1YF8EXsbeBpFc6&q=milk+sign+language&limit=2&offset=0&rating=g&lang=en')
+      return results.data
+    }
+
+
+
+    
+
+
+
+        
+

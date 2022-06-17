@@ -4,12 +4,16 @@ const router = express.Router();
 const ExpressError = require("../expressError");
 const jsonschema = require('jsonschema')
 const userSchema = require('../schemas/userSchema')
+const nunjucks = require('nunjucks')
 
 router.get('/', async (req, res, next) => {
     try {
         const results = await db.query(`
         SELECT * FROM Users
         `)
+        for (rows in results.rows){
+
+        }
         return res.json(results.rows)
     }
         catch (e) {

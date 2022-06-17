@@ -3,9 +3,12 @@
 const express = require('express');
 const app = express();
 const ExpressError = require('./expressError');
+const nunjucks = require('nunjucks')
+const moment = require('moment')
 
 // Parse request bodies for JSON
 app.use(express.json());
+app.use(express.static("public"))
 
 const uRoutes = require("./routes/users");
 const bRoutes = require("./routes/boards");
@@ -14,6 +17,15 @@ app.use("/users", uRoutes);
 app.use('/boards', bRoutes)
 app.use("/gifs", gRoutes)
 
+nunjucks.configure("templates", {
+  autoescape: true,
+  express: app
+})
+
+app.get("/", (req, res, next) => {
+  res.render("base.html");
+
+})
 
 /** 404 handler */
 
@@ -33,6 +45,8 @@ app.use((err, req, res, next) => {
     error: err.message
   });
 });
+
+
 
 // app.listen(3000, function () {
 //   console.log('Server started on 3000');
